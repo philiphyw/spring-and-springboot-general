@@ -1,15 +1,24 @@
 package com.outlook.philiphyw.learn_jpa_hibernate.course;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+@Entity
 @Component
 @Setter
 @NoArgsConstructor
 @ToString
 public class Course {
+    @Id
     private long id;
+
+//    @Column(name = "courseName")
     private String name;
+
     private String author;
 
     public Course(long id, String name, String author) {
