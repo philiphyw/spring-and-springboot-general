@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class SayHelloController {
     @GetMapping("say-hello")
     @ResponseBody
-    public String sayHello(){
+    public String sayHello() {
         return "Hello, What're you learning today?";
     }
 
-//    SpringBoot will try to load jsp files automatically in the path "/src/main/resources/META-INF/resources/WEB-INF/jsp/"
-@GetMapping("say-hello-jsp")
-public String sayHelloJsp(){
-    return "sayHello";
-}
+    //    SpringBoot will try to load jsp files automatically in the path "/src/main/resources/META-INF/resources/WEB-INF/jsp/"
+    @GetMapping("say-hello-jsp")
+    public String sayHelloJsp() {
+        return "sayHello";
+    }
 }
