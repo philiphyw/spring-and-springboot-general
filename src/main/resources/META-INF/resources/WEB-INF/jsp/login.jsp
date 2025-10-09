@@ -8,14 +8,14 @@
     <header>
       <h1>Please Login ${clientName}</h1>
     </header>
-<form>
+<form method="post">
     <div>
     <label for="username">Username:</label>
-    <input id="username" />
+    <input id="username" name="username" type="text"/>
     </div>
     <div>
     <label for="password">Password:</label>
-    <input id="password" type="password" />
+    <input id="password" name="password" type="password" />
     </div>
     <div>
     <button>Cancel</button>
