@@ -22,5 +22,6 @@
     <button type="submit">Login</button>
     </div>
 </form>
+    <p>${errorMessage}</p>
   </body>
 </html>
