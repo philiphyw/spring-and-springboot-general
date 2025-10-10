@@ -9,9 +9,7 @@
       <h1>Welcome ${clientName}</h1>
     </header>
 Please find your todo list:
-<ul>
-<li>placeholder todo item</li>
-</ul>
+${todos}
     <p>${errorMessage}</p>
   </body>
 </html>

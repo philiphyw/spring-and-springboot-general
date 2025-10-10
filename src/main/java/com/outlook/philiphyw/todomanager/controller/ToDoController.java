@@ -20,7 +20,9 @@ public class ToDoController {
     @RequestMapping(value = "find-todo",method = RequestMethod.GET)
     public String findTodoByName(@RequestParam String name, ModelMap modelMap){
         if(name != null){
+            List<Todo> todos = todoService.findByUsername(name);
             modelMap.put("clientName",name);
+            modelMap.addAttribute("todos",todos);
             return "todos";
         }else{
             return "login";
