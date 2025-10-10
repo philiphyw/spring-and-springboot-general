@@ -6,8 +6,8 @@
   </head>
   <body>
     <header>
-      <h1>Welcome ${clientName}</h1>
+      <h1>Welcome ${name}</h1>
     </header>
-
+<a href="/find-todo">Manage To-dos</a>
   </body>
 </html>

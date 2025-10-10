@@ -6,12 +6,12 @@
   </head>
   <body>
     <header>
-      <h1>Please Login ${clientName}</h1>
+      <h1>Please Login ${name}</h1>
     </header>
 <form method="post">
     <div>
-    <label for="username">Username:</label>
-    <input id="username" name="username" type="text"/>
+    <label for="name">Username:</label>
+    <input id="name" name="name" type="text"/>
     </div>
     <div>
     <label for="password">Password:</label>

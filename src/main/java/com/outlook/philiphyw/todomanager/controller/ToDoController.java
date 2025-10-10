@@ -5,20 +5,19 @@ import com.outlook.philiphyw.todomanager.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@SessionAttributes("name")
 public class ToDoController {
     @Autowired
     private TodoService todoService;
 
     @RequestMapping(value = "find-todo",method = RequestMethod.GET)
-    public String findTodoByName(@RequestParam String name, ModelMap modelMap){
+    public String findTodoByName(ModelMap modelMap){
+        String name = (String)modelMap.getAttribute("name");
         if(name != null){
             List<Todo> todos = todoService.findByUsername(name);
             modelMap.put("clientName",name);
