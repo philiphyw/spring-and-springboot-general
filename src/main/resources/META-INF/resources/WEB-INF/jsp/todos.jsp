@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,6 +11,7 @@
     </header>
 Please find your todo list:
 ${todos}
+
 <table>
 <thead>
 <tr>
@@ -31,6 +33,7 @@ ${todos}
 </c:forEach>
 </tbody>
 </table>
+
     <a href="add-todo">Add new Todo</a>
     <a href="delete-todo?id=1">Delete Todo</a>
     <p>${errorMessage}</p>
