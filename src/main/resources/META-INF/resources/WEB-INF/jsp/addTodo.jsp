@@ -12,10 +12,10 @@
     </header>
     <form:form method="post" modelAttribute="todo">
        <form:input path="id" type="hidden" name="id" />
-        Username: <input type="text" name="name" value=${name} disabled />
-        Description: <form:input path="description" type="text" name="description" required="required"/>
-        Target Date: <form:input path="targetDate" type="date" name="targetDate" required="required"/>
-        <form:input path="done" type="hidden" name="done" />
+        Username: <input type="text" name="name" value=${name} disabled /> <br>
+        Description: <form:input path="description" type="text" name="description" required="required" /> <form:errors path="description" /><br>
+        Target Date: <form:input path="targetDate" type="date" name="targetDate" required="required" /> <form:errors path="targetDate" /> <br>
+        <form:input path="done" type="hidden" name="done" /> <br>
         <button type="cancel">Cancel</button>
         <button type="submit">Add Todo</button>
     </form:form>
