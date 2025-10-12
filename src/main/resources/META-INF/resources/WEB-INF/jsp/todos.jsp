@@ -9,8 +9,6 @@
     <header>
       <h1>Welcome ${name}</h1>
     </header>
-Please find your todo list:
-${todos}
 
 <table>
 <thead>
@@ -29,13 +27,12 @@ ${todos}
 <td>${todo.description}</td>
 <td>${todo.targetDate}</td>
 <td>${todo.done}</td>
+<td><a href="delete-todo?id=${todo.id}">Delete</a></td>
 </tr>
 </c:forEach>
 </tbody>
 </table>
-
     <a href="add-todo">Add new Todo</a>
-    <a href="delete-todo?id=1">Delete Todo</a>
     <p>${errorMessage}</p>
   </body>
 </html>

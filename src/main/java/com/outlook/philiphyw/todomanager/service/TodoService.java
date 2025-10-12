@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalLong;
 
 @Service
 public class TodoService {
@@ -21,11 +22,19 @@ public class TodoService {
     }
 
     public void addByUsername(String username, String description, LocalDate targetDate, Boolean isDone){
-        long newId = (long) (todos.size() + 1);
+        long newId = generateNextId();
         todos.add(new Todo(newId, username,description,targetDate, isDone));
     }
 
     public void deleteById(long targetId){
         todos.removeIf(todo->todo.getId() == targetId);
+    }
+
+    private long generateNextId() {
+        OptionalLong maxId = todos.stream()
+                .mapToLong(Todo::getId)
+                .max();
+
+        return maxId.orElse(0L) + 1;
     }
 }
