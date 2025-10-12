@@ -31,6 +31,8 @@ public class ToDoController {
     @RequestMapping(value = "add-todo",method = RequestMethod.GET)
     public String addTodoByName(ModelMap modelMap){
         String name = (String)modelMap.getAttribute("name");
+        Todo todo = new Todo();
+        modelMap.put("todo",todo);
         if(name != null){
             return "addTodo";
         }else{
@@ -39,12 +41,10 @@ public class ToDoController {
     }
 
     @RequestMapping(value = "add-todo",method = RequestMethod.POST)
-    public String gotoTodosJsp(@RequestParam String description, @RequestParam LocalDate targetDate, ModelMap modelMap){
+    public String gotoTodosJsp(ModelMap modelMap, Todo todo){
         String name = (String)modelMap.getAttribute("name");
         if(name != null){
-            todoService.addByUsername(name,description,targetDate,false);
-            List<Todo> todos = todoService.findByUsername(name);
-            modelMap.addAttribute("todos",todos);
+            todoService.addByUsername(name,todo.getDescription(),todo.getTargetDate(),false);
             return "redirect:find-todo";
         }else{
             return "login";

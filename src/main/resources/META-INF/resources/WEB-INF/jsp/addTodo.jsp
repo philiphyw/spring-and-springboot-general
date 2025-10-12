@@ -1,3 +1,5 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,13 +10,15 @@
     <header>
       <h1>Welcome ${name}, Please enter todo detail</h1>
     </header>
-    <form method="post">
+    <form:form method="post" modelAttribute="todo">
+       <form:input path="id" type="hidden" name="id" />
         Username: <input type="text" name="name" value=${name} disabled />
-        Description: <input type="text" name="description" />
-        Target Date: <input type="date" name="targetDate" />
+        Description: <form:input path="description" type="text" name="description" required="required"/>
+        Target Date: <form:input path="targetDate" type="date" name="targetDate" required="required"/>
+        <form:input path="done" type="hidden" name="done" />
         <button type="cancel">Cancel</button>
         <button type="submit">Add Todo</button>
-    </form>
+    </form:form>
     <p>${errorMessage}</p>
   </body>
 </html>
