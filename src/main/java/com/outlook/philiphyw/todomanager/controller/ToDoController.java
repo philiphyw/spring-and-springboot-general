@@ -68,6 +68,7 @@ public class ToDoController {
     public String goToUpdateTodoJsp(@RequestParam long id, ModelMap modelMap){
         if(id >= 0){
             Todo todo = todoService.findById(id);
+            System.out.println(todo);
             modelMap.addAttribute("todo",todo);
             return "updateTodo";
         }
