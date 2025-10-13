@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@With
+@Builder
 public class Todo {
     @Id
     private long id;

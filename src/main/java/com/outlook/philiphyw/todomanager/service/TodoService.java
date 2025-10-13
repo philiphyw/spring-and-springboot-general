@@ -26,8 +26,20 @@ public class TodoService {
         todos.add(new Todo(newId, username,description,targetDate, isDone));
     }
 
-    public void deleteById(long targetId){
-        todos.removeIf(todo->todo.getId() == targetId);
+    public void deleteById(long id){
+        todos.removeIf(todo->todo.getId() == id);
+    }
+
+    public Todo findById(long id){
+      return  todos.stream().filter(todo -> todo.getId() == id).findFirst().get();
+    }
+
+    public void updateById(long id, Todo updatedTodo){
+        todos.replaceAll(todo ->
+                todo.getId() == id
+                        ? updatedTodo.withId(todo.getId())
+                        : todo
+        );
     }
 
     private long generateNextId() {

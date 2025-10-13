@@ -64,4 +64,23 @@ public class ToDoController {
             return "redirect:find-todo";
     }
 
+    @RequestMapping(value = "update-todo",method = RequestMethod.GET)
+    public String goToUpdateTodoJsp(@RequestParam long id, ModelMap modelMap){
+        if(id >= 0){
+            Todo todo = todoService.findById(id);
+            modelMap.addAttribute("todo",todo);
+            return "updateTodo";
+        }
+        return "redirect:find-todo";
+    }
+
+    @RequestMapping(value = "update-todo",method = RequestMethod.POST)
+    public String UpdateThenGoToTodoSJsp(ModelMap modelMap, @Valid Todo todo, BindingResult result){
+        if(result.hasErrors()){
+            return "updateTodo";
+        }
+        todoService.updateById(todo.getId(),todo);
+        return "redirect:find-todo";
+    }
+
 }
