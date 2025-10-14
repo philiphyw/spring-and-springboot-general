@@ -1,0 +1,10 @@
+<nav>
+    Todo Manager
+    <ul>
+        <a href="/">Home</a>
+        <a href="/find-todo">Todo</a>
+    </ul>
+    <ul>
+        <a href="/logout">Logout</a>
+    </ul>
+</nav>
