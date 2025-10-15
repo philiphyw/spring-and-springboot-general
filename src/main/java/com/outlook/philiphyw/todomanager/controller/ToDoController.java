@@ -26,7 +26,7 @@ public class ToDoController {
             modelMap.addAttribute("todos",todos);
             return "todos";
         }else{
-            return "login";
+            return "/";
         }
     }
 
@@ -38,7 +38,7 @@ public class ToDoController {
         if(name != null){
             return "addTodo";
         }else{
-            return "login";
+            return "/";
         }
     }
 
@@ -52,7 +52,7 @@ public class ToDoController {
             todoService.addByUsername(name,todo.getDescription(),todo.getTargetDate(),false);
             return "redirect:find-todo";
         }else{
-            return "login";
+            return "/";
         }
     }
 
