@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalLong;
+import java.util.function.Predicate;
 
 @Service
 public class TodoService {
@@ -18,7 +19,8 @@ public class TodoService {
     ));
 
     public List<Todo> findByUsername(String username) {
-        return todos;
+        Predicate<? super Todo> predicate = todo -> todo.getUsername().equals(username);
+        return todos.stream().filter(predicate).toList();
     }
 
     public void addByUsername(String username, String description, LocalDate targetDate, Boolean isDone){
@@ -31,13 +33,13 @@ public class TodoService {
     }
 
     public Todo findById(long id){
-      return  todos.stream().filter(todo -> todo.getId() == id).findFirst().get();
+      return todos.stream().filter(todo -> todo.getId() == id).findFirst().get();
     }
 
     public void updateById(long id, Todo updatedTodo){
         todos.replaceAll(todo ->
                 todo.getId() == id
-                        ? updatedTodo.withId(todo.getId())
+                        ? updatedTodo.withId(todo.getId()).withUsername(todo.getUsername())
                         : todo
         );
     }

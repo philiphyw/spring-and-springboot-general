@@ -1,6 +1,7 @@
 package com.outlook.philiphyw.todomanager.controller;
 
 import com.outlook.philiphyw.todomanager.model.Todo;
+import com.outlook.philiphyw.todomanager.security.AuthenticationService;
 import com.outlook.philiphyw.todomanager.service.TodoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,13 @@ public class ToDoController {
     @Autowired
     private TodoService todoService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @RequestMapping(value = "find-todo",method = RequestMethod.GET)
     public String findTodoByName(ModelMap modelMap){
-        String name = (String)modelMap.getAttribute("name");
+        modelMap.addAttribute("name",authenticationService.getLoggedInUsername());
+        String name = authenticationService.getLoggedInUsername();
         if(name != null){
             List<Todo> todos = todoService.findByUsername(name);
             modelMap.addAttribute("todos",todos);
@@ -32,7 +37,7 @@ public class ToDoController {
 
     @RequestMapping(value = "add-todo",method = RequestMethod.GET)
     public String addTodoByName(ModelMap modelMap){
-        String name = (String)modelMap.getAttribute("name");
+        String name = authenticationService.getLoggedInUsername();
         Todo todo = new Todo(0,name,"please enter todo with 10 plus characters",LocalDate.now().plusDays(7),false);
         modelMap.put("todo",todo);
         if(name != null){
@@ -44,7 +49,7 @@ public class ToDoController {
 
     @RequestMapping(value = "add-todo",method = RequestMethod.POST)
     public String addThenGoToTodosJsp(ModelMap modelMap, @Valid Todo todo, BindingResult result){
-        String name = (String)modelMap.getAttribute("name");
+        String name = authenticationService.getLoggedInUsername();
         if(result.hasErrors()){
             return "addTodo";
         }

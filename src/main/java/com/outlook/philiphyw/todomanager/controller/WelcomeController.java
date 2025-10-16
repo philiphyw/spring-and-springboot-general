@@ -1,5 +1,7 @@
 package com.outlook.philiphyw.todomanager.controller;
 
+import com.outlook.philiphyw.todomanager.security.AuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -9,17 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("name")
 public class WelcomeController {
+    @Autowired
+    AuthenticationService authenticationService;
 
     @RequestMapping(value="/",method=RequestMethod.GET)
     public String goToWelcomeJsp(ModelMap modelMap){
-        modelMap.addAttribute("name",getLoggedInUsername());
+        modelMap.addAttribute("name",authenticationService.getLoggedInUsername());
         return "welcome";
-    }
-
-    private String getLoggedInUsername(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
     }
 }
