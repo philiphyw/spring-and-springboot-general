@@ -1,6 +1,7 @@
 package com.outlook.philiphyw.todomanager.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 @Builder
 public class Todo {
     @Id
+    @GeneratedValue
     private long id;
     private String username;
     @Size(min=10, message="Description must be 10 plus characters")
