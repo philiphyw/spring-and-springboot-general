@@ -1,7 +1,6 @@
 package com.outlook.philiphyw.todomanager.controller;
 
 import com.outlook.philiphyw.todomanager.model.Todo;
-import com.outlook.philiphyw.todomanager.repository.TodoRepository;
 import com.outlook.philiphyw.todomanager.security.AuthenticationService;
 import com.outlook.philiphyw.todomanager.service.TodoService;
 import jakarta.validation.Valid;
@@ -9,21 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Controller
-public class ToDoController {
+//@Controller
+@SessionAttributes("name")
+public class ToDoControllerBackUp {
     @Autowired
     private TodoService todoService;
-
-    @Autowired
-    private TodoRepository todoRepository;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -33,7 +27,7 @@ public class ToDoController {
         modelMap.addAttribute("name",authenticationService.getLoggedInUsername());
         String name = authenticationService.getLoggedInUsername();
         if(name != null){
-            List<Todo> todos = todoRepository.findByUsername(name);
+            List<Todo> todos = todoService.findByUsername(name);
             modelMap.addAttribute("todos",todos);
             return "todos";
         }else{
@@ -60,8 +54,7 @@ public class ToDoController {
             return "addTodo";
         }
         if(name != null){
-            todo.setUsername(name);
-            todoRepository.save(todo);
+            todoService.addByUsername(name,todo.getDescription(),todo.getTargetDate(),false);
             return "redirect:find-todo";
         }else{
             return "/";
@@ -71,7 +64,7 @@ public class ToDoController {
     @RequestMapping(value = "delete-todo",method = RequestMethod.GET)
     public String deleteThenGoToTodosJsp(@RequestParam long id){
         if(id >= 0){
-            todoRepository.deleteById(id);
+            todoService.deleteById(id);
         }
             return "redirect:find-todo";
     }
@@ -79,10 +72,11 @@ public class ToDoController {
     @RequestMapping(value = "update-todo",method = RequestMethod.GET)
     public String goToUpdateTodoJsp(@RequestParam long id, ModelMap modelMap){
         if(id >= 0){
-            Todo todo = todoRepository.findById(id).get();
-            System.out.printf("update todo get %s",todo);
+//            String name = authenticationService.getLoggedInUsername();
+//            modelMap.addAttribute("name",name);
+            Todo todo = todoService.findById(id);
+            System.out.println(todo);
             modelMap.addAttribute("todo",todo);
-//            modelMap.addAttribute("name",todo.getUsername());
             return "updateTodo";
         }
         return "redirect:find-todo";
@@ -93,8 +87,7 @@ public class ToDoController {
         if(result.hasErrors()){
             return "updateTodo";
         }
-        System.out.printf("update todo post %s",todo);
-        todoRepository.save(todo);
+        todoService.updateById(todo.getId(),todo);
         return "redirect:find-todo";
     }
 

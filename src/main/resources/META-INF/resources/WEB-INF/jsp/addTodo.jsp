@@ -12,7 +12,8 @@
     </header>
     <form:form method="post" modelAttribute="todo">
        <form:input path="id" type="hidden" name="id" />
-        Username: <input type="text" name="name" value=${name} disabled /> <br>
+       <form:input path="username" type="hidden" name="username" />
+        Username: <label>${todo.getUsername()} </label> <br>
         <fieldset>
             <form:label path="description">Description</form:label>
             <form:input path="description" type="text" name="description" required="required" />
